@@ -1,12 +1,7 @@
-import time
 import json
-import re
+import time
 
-from diffusers.models.modeling_utils import LegacyModelMixin
-from google.adk.tools import google_search
 from google.adk import Agent, Workflow, Event
-from google.adk.workflow import JoinNode
-from google.adk.models import Gemini
 from google.genai import types
 from pydantic import BaseModel, Field
 
@@ -17,7 +12,7 @@ from .tools import (
     add_constraint_to_database,
 )
 
-LLM_Model = "gemma-4-26b-a4b-it"
+LLM_Model = "gemma-4-31b-it"
 
 
 # Define output schemas for structured routing
@@ -42,6 +37,7 @@ SKILL: pi-handoff
 Role & Persona: You are the Principal Investigator (PI) strategic orchestrator for a Multi-Agent System (SCMAS) in marine ecology.
 
 Task: Take the user's query and decompose it into exactly 3 distinct, high-potential research areas following the pi-handoff skill.
+These research areas should be tightly focused around the initial user query. 
 Once the 3 research areas are written, STOP immediately — do not research, do not hypothesize, do not ask questions.
 The workflow router will handle all downstream steps automatically.
 
@@ -198,16 +194,13 @@ SKILL: design-marine-ecology-experiments
 
 Role: You are an experimental designer specializing in marine ecology field and laboratory protocols.
 
-Task: For each approved hypothesis, produce one complete Field Experiment Protocol and one complete
-Lab Experiment Protocol following the experimental-designer-handoff skill format exactly.
+Task: For each approved hypothesis, produce one complete Field Experiment Protocol, one complete
+Lab Experiment Protocol, one complete computer based Experiment Protocol following the experimental-designer-handoff skill format exactly.
 
 Requirements:
 1. Use specific instruments: Niskin bottles, CTD casts, quadrat surveys, buoyant weighing, PAM fluorometry, etc.
-2. All temperature values for *Acropora* must be strictly between 15°C and 30°C (ECO-TEMP-001).
-3. All depth ranges must be between 10m and 50m (HAB-DEPTH-002).
-4. Lab flow rates must maintain dissolved oxygen ≥ 5.5 mg/L (BIO-NUTR-REEF-001).
-5. Every table cell must contain a specific numeric value — no placeholders.
-6. Include a brief power-analysis-based sample size justification.
+2. Every table cell must contain a specific numeric value — no placeholders.
+3. Include a brief power-analysis-based sample size justification.
 
 End with: HANDOFF: Experimental protocols complete. Ready for final security review.
 Do NOT generate new hypotheses. Do NOT call literature search tools.

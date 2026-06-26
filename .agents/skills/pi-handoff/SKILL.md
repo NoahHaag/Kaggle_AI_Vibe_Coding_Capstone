@@ -23,6 +23,7 @@ Identify the **core scientific topic** (e.g., "coral bleaching under ocean acidi
 
 ### Step 2 — Decompose into exactly 3 research areas
 Break the topic into three **distinct, non-overlapping** sub-areas that together cover the query space.
+These topics should still tightly align with the initial query.
 Each area must:
 - Be researchable via Google Scholar keyword searches.
 - Be specific enough that a literature search returns relevant papers (not "marine biology" — bad; "thermal bleaching thresholds in *Acropora* spp. under elevated pCO₂" — good).
