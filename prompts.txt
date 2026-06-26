@@ -1,0 +1,38 @@
+prompt 1 = "I am building a Self-Correcting multi-agent system. With an ADK 2.0 graph workflow — use
+the new Workflow graph API (function nodes wired together by edges, not the 1.x SequentialAgent /
+LlmAgent style.
+
+The behavior I want is outlined in PLAN.md
+
+There is currently an outlined agent following the @agent.py and @__init__ format. Make sure the tools found in @tools.py are connected correctly.
+
+I also want to implement some agent skills. Determine the goals of the agent system and brainstorm 2-3 SKILLS which would help this agent.
+
+After coding the corrections explain to me each thing you changed or added. "
+
+prompt 2 = "I have made some updates to the PLAN.md file.
+ I want to add a new skill to the PI agent, so it can add to the Constraint Database based on any new facts the sub-agents bring in from their tools.
+
+ I also am running into a problem where my agents are making api calls too quickly one after the other. I need these to slow down to not hit my rate limit.
+ Let's add some time.sleep() calls between agent calls."
+
+prompt 3 = "I think there are issues with the handoffs between agents. I would like you to write SKILL files for each agent walking it through how to hand off to the next agent.
+In particular focus on the type of output required by the following agent. I also think that a specific SKILL should be created for the Gap Finder to enforce the use of its tools.
+It is currently not actively using the function it is merely outputting what it WOULD search which is unhelpful.
+Some new notes can be found in PLAN.md and use this to stick to the main idea of the project with these new SKILLS"
+
+prompt 4 = "There is a persistent issue with the tool calling of the Gap Finder agent. I believe it lies within the workflow section.
+Keeping the ADK 2.0 graph based workflow how can we enforce tool usage.
+I think when the agent goes to perform the task it inputs the proposed query into the next node, not the actual function it wants to call.
+How can we prevent this?
+
+There is also a second issue where when the system reaches the HypothesisVerification step i run into this error:
+2 validation errors for VerificationResult
+is_valid
+  Field required [type=missing, input_value={'name': 'query_constrain...base', 'parameters': {}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.12/v/missing
+feedback
+  Field required [type=missing, input_value={'name': 'query_constrain...base', 'parameters': {}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.12/v/missing
+
+ What is causing this and how can it be prevented?"

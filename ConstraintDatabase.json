@@ -1,0 +1,81 @@
+[
+  {
+  "constraint_id": "ECO-TEMP-001",
+  "layer": "Layer 2: Ecological Limits",
+  "description": "Thermal tolerance limits for *Acropora* coral species under stable conditions.",
+  "parameters": {
+    "species": "Acropora spp.",
+    "max_temp_celsius": 30,
+    "min_temp_celsius": 15,
+    "tolerance_delta": 5.0
+  },
+  "implication": "Any experimental setup or simulation involving these species must maintain water temperatures strictly between 15°C and 30°C to remain ecologically viable."
+},
+{
+  "constraint_id": "HAB-DEPTH-002",
+  "layer": "Layer 2: Ecological Limits",
+  "description": "Minimum depth required for successful establishment of the target habitat structure.",
+  "parameters": {
+    "habitat_type": "Reef/Benthic Habitat",
+    "min_depth_meters": 10,
+    "max_depth_meters": 50
+  },
+  "implication": "Field or simulation designs must define the experimental area within this 10m to 50m depth range to simulate realistic habitat conditions for the species."
+},
+{
+  "constraint_id": "BIO-THERM-CORAL-001",
+  "layer": "Layer 2: Ecological Limits",
+  "description": "Thermal tolerance limits for *Acropora millepora* coral growth under stable conditions.",
+  "parameters": {
+    "species": "Acropora millepora",
+    "max_temp_celsius": 29,
+    "min_temp_celsius": 16,
+    "tolerance_delta": 4.0
+  },
+  "implication": "Any simulation or experiment modeling *A. millepora* must maintain water temperatures strictly between 16°C and 29°C to remain ecologically viable."
+},
+{
+  "constraint_id": "BIO-NUTR-REEF-001",
+  "layer": "Layer 2: Ecological Limits",
+  "description": "Minimum dissolved oxygen required to support the metabolic rate of the coral microbiome.",
+  "parameters": {
+    "ecosystem": "Reef Simulation",
+    "min_dissolved_oxygen_mgL": 5.5,
+    "required_flow_rate_LPM": 100
+  },
+  "implication": "The simulation must ensure that flow rates are sufficient to maintain dissolved oxygen levels above 5.5 mg/L across the simulated depth profile to prevent ecosystem collapse."
+},
+{
+  "constraint_id": "POP-K-002",
+  "layer": "Layer 2: Ecological Limits",
+  "description": "The maximum sustainable carrying capacity (K) for target fish populations based on localized resource density.",
+  "parameters": {
+    "species": "Snapper Population",
+    "carrying_capacity_max": 4500,
+    "resource_dependency": "Phytoplankton Biomass"
+  },
+  "implication": "The simulation results for the population size must not exceed 4500 individuals under the specified resource dependency to reflect established ecological carrying capacity."
+},
+  {
+  "constraint_id": "BIO-LIGHT-001",
+  "layer": "Layer 2: Ecological Limits",
+  "description": "Minimum light penetration depth required for sustained primary production in the target habitat.",
+  "parameters": {
+    "habitat_type": "Reef/Benthic Habitat",
+    "min_depth_meters": 5,
+    "light_penetration_percent": 30
+  },
+  "implication": "Field or simulation designs must define the experimental area within this depth range (5m) to ensure that photosynthetic organisms receive sufficient light for survival."
+},
+  {
+  "constraint_id": "BIO-METAB-001",
+  "layer": "Layer 2: Ecological Limits",
+  "description": "Minimum metabolic rate required for a fish species to maintain basal survival rates.",
+  "parameters": {
+    "species": "Target Pelagic Fish (e.g., Tuna)",
+    "min_metabolic_rate_kcal_per_day": 1500,
+    "energy_density_required_kcal": 400
+  },
+  "implication": "Any simulation must ensure that the calculated food supply provides at least 400 kcal per day to meet the minimum metabolic demands of the simulated population."
+}
+  ]
