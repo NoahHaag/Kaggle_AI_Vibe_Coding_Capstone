@@ -84,6 +84,7 @@ gap_finder_agent = Agent(
     model=LLM_Model,
     instruction="""
 SKILL: gap-finder-tool-enforcement
+SKILL: synthesize-research-themes
 
 Role: You are a formal logic expert for literature analysis.
 
