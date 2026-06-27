@@ -2,8 +2,9 @@ import json
 import time
 
 from google.adk import Agent, Workflow, Event
+from google.adk.sessions import session, InMemorySessionService
 from google.genai import types
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ValidationError
 
 from .tools import (
     google_scholar_search,
@@ -13,7 +14,6 @@ from .tools import (
 )
 
 LLM_Model = "gemma-4-31b-it"
-
 
 # Define output schemas for structured routing
 class SecurityCheckResult(BaseModel):
@@ -25,6 +25,11 @@ class VerificationResult(BaseModel):
     is_valid: bool = Field(description="True if the proposed hypotheses comply with all ecological limits, physical laws, and experimental constraints in the database; False otherwise.")
     feedback: str = Field(description="Detailed feedback describing which specific constraints were violated and how the designer must revise the hypotheses.")
     approved_hypotheses: list[str] = Field(default=[], description="The list of approved hypotheses (only if is_valid is True).")
+
+class GapFinderToolCall(BaseModel):
+    """Represents a single tool call from the Gap Finder agent."""
+    name: str = Field(description="The name of the tool to be called (e.g., 'google_scholar_search').")
+    parameters: dict = Field(description="The dictionary of parameters for the tool.")
 
 
 # 1. Principal Investigator Agent
@@ -84,12 +89,13 @@ gap_finder_agent = Agent(
     model=LLM_Model,
     instruction="""
 SKILL: gap-finder-tool-enforcement
+SKILL: synthesize-research-themes
 
 Role: You are a formal logic expert for literature analysis.
 
 **Workflow:**
-1.  **Analyze Input:** You will receive research topics.
-2.  **Call Tools:** Call `google_scholar_search` for each topic to gather papers. You MUST call the tools.
+1.  **Analyze Input:** You will receive research topics here: {Research_Areas}. If this is not the first time you've been called your last output will be here: {Gaps}.
+2.  **Call Tools:** Call `google_scholar_search` for each topic to gather papers. You MUST call the tools. Make each tool call one at a time. To call the tool output the query. 
 3.  **Receive Results:** The workflow will execute your tool calls and feed the results back to you.
 4.  **Analyze and Loop:** Analyze the tool results. If you don't have enough information or need to refine your search, call the tools again.
 5.  **Terminate:** Once you have found at least 3 plausible research gaps based on the papers, your FINAL output must be ONLY the Markdown table below. The presence of this table signals that your work is done.
@@ -239,7 +245,7 @@ research_proposer = Agent(
     instruction="""
     Role & Persona: You are a Senior Research Storyteller and Methodology Architect. Your task is to synthesize all preceding research steps into a single, cohesive narrative that presents a compelling argument for new marine ecology research.
     
-    Goal: Knit together the validated gaps, the proposed hypotheses, and the designed experiments into a coherent story demonstrating the necessity of the proposed research. The final output must flow logically from problem identification to experimental solution.
+    Goal: Knit together the validated gaps, the proposed hypotheses, and the designed experiments into a coherent story demonstrating the necessity of the proposed research. Do this for each of the three themes and research gaps identified. 
     
     Input Data Context: You will have access to:
     
@@ -257,14 +263,22 @@ research_proposer = Agent(
     Clearly articulate the specific, high-potential research gaps that the existing literature fails to address.
     Phase 3: The Solution (Proposing the Path)
     
-    For each identified gap, introduce the proposed hypothesis and explain precisely how the designed Field and Lab Experiments are designed to test this hypothesis and find a solution.
-    Final Output: Generate a narrative draft that flows seamlessly from identifying the problem to proposing the solution through empirical testing.
+    For each of the three identified gaps, introduce the proposed hypothesis and explain precisely how the designed Field and Lab Experiments are designed to test this hypothesis and find a solution.
+    Final Output: Generate a narrative draft that flows seamlessly from identifying the problems to proposing the solution through empirical testing.
+    
+    The output should allow a skilled researcher to identify a specific research gap and follow the experimental protocol.
+    They should be able to pick which of the three best fits their goals.
+     You **should not** pick one, lay out the three plans from start to finish in a way to allow the user to fully understand the research gap and how to experimentally test it. 
+    
+    Constraint Database Skill: Whenever any sub-agent surfaces a new, well-sourced ecological or physical FACT (e.g., a species tolerance range, depth limit, dissolved-oxygen threshold), you MUST call the `add_constraint_to_database` tool to persist it. Generate a unique constraint_id following the pattern LAYER-TYPE-NNN (e.g., "ECO-SALT-003"). Always include the source citation so the database remains auditable.
+
     """,
     generate_content_config=types.GenerateContentConfig(
             http_options=types.HttpOptions(
                 retry_options=types.HttpRetryOptions(initial_delay=1, attempts=2),
             )
-    )
+    ),
+    tools= [query_constraint_database, add_constraint_to_database]
 )
 
 
@@ -347,7 +361,7 @@ def gap_finder_executor_router(node_input):
     if isinstance(processed_input, dict) and "name" in processed_input:
         tool_name = processed_input.get("name")
         parameters = processed_input.get("parameters", {})
-        
+
         try:
             if tool_name == "google_scholar_search":
                 result = google_scholar_search(**parameters)
@@ -385,13 +399,16 @@ def verification_router(node_input: VerificationResult):
 def security_failed_node(node_input: str):
     return Event(message=f"Workflow halted due to security violation:\n{node_input}")
 
+def workflow_initilization_node(node_input: str):
+    return Event(state= {"Gaps": "No gaps or research identified yet"})
+
 
 # The root workflow graph
 root_agent = Workflow(
     name="Capstone_Workflow",
     edges=[
         # ── PI → throttle → Security check → router ──────────────────────────
-        ("START", PI_agent, throttle_pi_to_security, security_agent, security_router),
+        ("START", workflow_initilization_node, PI_agent, throttle_pi_to_security, security_agent, security_router),
         (security_router, {
             "SAFE": throttle_security_to_gap,
             "UNSAFE": security_failed_node,

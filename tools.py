@@ -1,32 +1,63 @@
 import requests
 from bs4 import BeautifulSoup
+import time
+import random
+
+_USER_AGENTS = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36",
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Safari/537.36",
+]
+
+def _send_request(url, max_retries=3):
+    """
+    Internal helper to send a request with retries and exponential backoff.
+    """
+    for attempt in range(max_retries):
+        try:
+            # Add a small random delay to mimic human behavior
+            time.sleep(random.uniform(1, 3))
+
+            headers = {"User-Agent": random.choice(_USER_AGENTS)}
+            response = requests.get(url, headers=headers)
+
+            if response.status_code == 200:
+                return response
+            elif response.status_code == 429:
+                print(f"Rate limit exceeded (429). Retrying in {2 ** attempt} seconds...")
+                time.sleep(2 ** attempt)
+            else:
+                print(f"Failed to fetch data. HTTP Status code: {response.status_code}")
+                return None
+
+        except requests.exceptions.RequestException as e:
+            print(f"An error occurred: {e}")
+            if attempt < max_retries - 1:
+                print(f"Retrying in {2 ** attempt} seconds...")
+                time.sleep(2 ** attempt)
+            else:
+                return None
+    print("Max retries reached. Failed to fetch data.")
+    return None
 
 
 def google_scholar_search(query: str, num_results=5):
     """
     Function to search Google Scholar using a simple keyword query.
-    
+
     Parameters:
     query (str): The search query (e.g., paper title or author).
     num_results (int): The number of results to retrieve.
-    
+
     Returns:
     list: A list of dictionaries containing search results.
     """
     # Prepare the search URL
     search_url = f"https://scholar.google.com/scholar?q={query.replace(' ', '+')}"
-    
-    # Set up headers to mimic a real browser request
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
-    }
 
     # Send the GET request to Google Scholar
-    response = requests.get(search_url, headers=headers)
-    
-    # Check if the request was successful
-    if response.status_code != 200:
-        print(f"Failed to fetch data. HTTP Status code: {response.status_code}")
+    response = _send_request(search_url)
+    if not response:
         return []
 
     # Parse the HTML content using BeautifulSoup
@@ -66,13 +97,13 @@ def google_scholar_search(query: str, num_results=5):
 def advanced_google_scholar_search(query:str, author=None, year_range=None, num_results=5):
     """
     Function to search Google Scholar using advanced search filters (e.g., author, year range).
-    
+
     Parameters:
     query (str): The search query (e.g., paper title or topic).
     author (str): The author's name to filter the results (default is None).
     year_range (tuple): A tuple (start_year, end_year) to filter the results by publication year (default is None).
     num_results (int): The number of results to retrieve.
-    
+
     Returns:
     list: A list of dictionaries containing search results.
     """
@@ -91,17 +122,9 @@ def advanced_google_scholar_search(query:str, author=None, year_range=None, num_
     # Encode the search parameters into the URL
     search_url += '&'.join([f"{key}={value}" for key, value in search_params.items()])
 
-    # Set up headers to mimic a real browser request
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
-    }
-
     # Send the GET request to Google Scholar
-    response = requests.get(search_url, headers=headers)
-    
-    # Check if the request was successful
-    if response.status_code != 200:
-        print(f"Failed to fetch data. HTTP Status code: {response.status_code}")
+    response = _send_request(search_url)
+    if not response:
         return []
 
     # Parse the HTML content using BeautifulSoup
@@ -253,3 +276,5 @@ def add_constraint_to_database(
         "status": "added",
         "message": f"Constraint '{constraint_id}' successfully added to the Constraint Database.",
     }
+
+print(google_scholar_search("artificial reefs", num_results=1))
