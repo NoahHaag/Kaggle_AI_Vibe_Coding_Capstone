@@ -38,9 +38,7 @@ Its primary function is to act as a proactive filter, ensuring that every propos
 
 
 # Current issues
-- The **Gap Finder** is not using its search tools. It outputs the query it *would* use.
-
-- The **final_security_agent** breaks and outputs the last word over and over in Thai and Nepali?
+- When the agent is used too frequently, the Google Scholar search tool hits a rate limit and returns an empty set, causing the Gap Finder to loop infinitely. 
 
 
 # Notes

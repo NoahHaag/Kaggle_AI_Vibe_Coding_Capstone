@@ -132,3 +132,8 @@ print(result)
 > Field Component: Long-term immersion studies using mesh enclosures at 35m depth to monitor natural fragmentation and micro-fragment bypass in a real-world benthic environment.
 > Lab Component: Accelerated degradation trials in high-flow tanks, utilizing buoyant weighing and fine-mesh sieving (10$\mu$m - 500$\mu$m) to provide a rigorous mass-balance of material loss and secondary microplastic production.
 > Through this integrated framework, this research will move 3D-printed marine restoration from an era of "structural trial-and-error" to a period of "ecologically engineered precision," ensuring that the reefs of tomorrow are built on a foundation of chemical and biological stability.
+
+
+## Known Bugs
+- When the agent is used too frequently, the Google Scholar search tool hits a rate limit and returns an empty set, causing the Gap Finder to loop infinitely. 
+
