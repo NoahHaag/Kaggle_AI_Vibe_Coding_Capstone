@@ -44,4 +44,3 @@ Its primary function is to act as a proactive filter, ensuring that every propos
 # Notes
 
 After some testing a router was needed to enforce the **Gap Finder**'s tool use.
-

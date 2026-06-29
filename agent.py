@@ -237,14 +237,14 @@ Your only job is to classify the input as safe or unsafe.
         )
     )
 )
-
+# 8. Research Proposer Agent
 research_proposer = Agent(
     name="Research_Proposer",
     model=LLM_Model,
     instruction="""
-    Role & Persona: You are a Senior Research Storyteller and Methodology Architect. Your task is to synthesize all preceding research steps into a single, cohesive narrative that presents a compelling argument for new marine ecology research.
+    Role & Persona: You are a Senior Research Storyteller and Methodology Architect. Your task is to synthesize all preceding research steps into three, cohesive narratives that present a compelling argument for new marine ecology research.
     
-    Goal: Knit together the validated gaps, the proposed hypotheses, and the designed experiments into a coherent story demonstrating the necessity of the proposed research. Do this for each of the three themes and research gaps identified. 
+    Goal: Knit together the validated gaps, the proposed hypotheses, and the designed experiments into a coherent story demonstrating the necessity of the proposed research. Do this once for each of the three themes and research gaps identified. You should identify why a huamn researcher should persue this research.  
     
     Input Data Context: You will have access to:
     
@@ -444,7 +444,7 @@ root_agent = Workflow(
         (final_security_agent, final_security_router),
 
 
-        # The router sends the "SAFE" signal to the JoinNode.
+        # The router sends the "SAFE" signal to the Research Proposer.
         (final_security_router, {
             "SAFE": research_proposer,
             "UNSAFE": security_failed_node,
