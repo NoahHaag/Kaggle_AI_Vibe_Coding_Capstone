@@ -10,6 +10,33 @@ The goal of this project is to leverage synthesized literature and physical cons
 
 The system is built as a multi-agent workflow orchestrated by a **Principal Investigator (PI)** agent. The workflow is designed to be self-correcting, with feedback loops for hypothesis verification and revision.
 
+```mermaid
+graph TD
+    subgraph "User Input"
+        A[User Query]
+    end
+
+    subgraph "SCMAS Workflow"
+        B(Principal Investigator)
+        C(Gap Finder)
+        D(Hypothesis Designer)
+        E(Hypothesis Verification)
+        F(Experimental Designer)
+        G(Research Proposer)
+    end
+
+    subgraph "Supporting Components"
+        H[Constraint Database]
+        I[Security Agent]
+    end
+
+    A --> B --> C --> D --> E
+    E -- Valid --> F --> G
+    E -- Invalid --> D
+    D & E & B -- Read/Write --> H
+    B & C & D & E & F & G -- Monitored by --> I
+```
+
 The overall workflow is as follows:
 
 1.  **Principal Investigator** 🕵️‍♀️: Decomposes a user's query into research areas.
@@ -46,7 +73,7 @@ The agents use the following tools:
 
 The Constraint Database is a key component of the system. It serves as a dynamic knowledge base of established physical laws, ecological limits, and experimental feasibility rules relevant to marine ecology. This database ensures that all generated hypotheses and experiments are scientifically plausible.
 
-## 🏃‍♀️ How to Run
+## 🏃‍♀️ Setup and Execution
 
 The project is implemented as a workflow using the `google.adk` library. To run the workflow, you would typically execute the `root_agent` workflow defined in `agent.py`.
 
@@ -136,4 +163,3 @@ print(result)
 
 ## Known Bugs
 - When the agent is used too frequently, the Google Scholar search tool hits a rate limit and returns an empty set, causing the Gap Finder to loop infinitely. 
-
