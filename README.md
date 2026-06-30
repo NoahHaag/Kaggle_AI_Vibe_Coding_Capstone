@@ -30,11 +30,16 @@ graph TD
         I[Security Agent]
     end
 
+    subgraph "" 
+        J[Output]
+    end
+
     A --> B --> C --> D --> E
     E -- Valid --> F --> G
     E -- Invalid --> D
     D & E & B -- Read/Write --> H
     B & C & D & E & F & G -- Monitored by --> I
+    G -- "Output" --> J
 ```
 
 The overall workflow is as follows:
