@@ -98,6 +98,25 @@ print(result)
 
 **Agent Response:**
 
+    Narrative I: Engineering Peace through Surface Morphology
+    Theme: Biomimetic Habitat Engineering for Damselfish Husbandry
+    
+    Phase 1: The Context
+    In natural reef ecosystems, damselfish are defined by their intense territoriality, often centering their existence around "algal gardens" which serve as both food sources and nesting sites. The stability of these social structures is intrinsically linked to the availability of suitable substrates that can support the growth of turf algae. According to established ecological limits [ECO-TEMP-001, HAB-DEPTH-002], these species thrive in specific temperature ($24^\circ\text{C}–27^\circ\text{C}$) and depth ($12\text{m}–20\text{m}$) corridors where sunlight and nutrient flow optimize algal productivity.
+    
+    Phase 2: The Challenge
+    A significant gap exists in captive husbandry: standard rocky or PVC substrates lack the complex surface morphology required to cultivate dense, high-quality turf algae. This deficiency creates "resource deserts" within the tank. In the absence of sufficient foraging area, damselfish shift from gardening to aggression, resulting in high frequencies of agonistic interactions that stress the colony, inhibit growth, and increase mortality rates. Current husbandry fails to replicate the biological "real estate" provided by complex reef organisms.
+    
+    Phase 3: The Solution
+    To resolve this, we propose the implementation of 3D-printed biomimetic substrates mimicking the surface morphology of giant clams (Tridacna spp.). The hypothesis is that by increasing the effective surface area for algae cultivation, we can reduce the competitive pressure that drives territorial aggression.
+    
+    Experimental Path to Validation:
+    
+    Field Validation: Researchers will deploy randomized blocks of these clam mimics and control substrates on a fringing reef. By using PAM fluorometry, the team will quantify the health and productivity of the algal turf, while quadrat surveys track whether fish in these zones exhibit fewer agonistic interactions (PI, 2024).
+    Laboratory Quantification: Using Pomacentrus amboinensis, the research will compare smooth PVC controls against clam-mimic substrates. High-resolution CMOS cameras will be used to record and quantify the exact frequency of "charge and bite" bouts per hour.
+    Computational Modeling: To scale these findings, an Agent-Based Model (ABM) developed in Python will simulate fish agents competing for algal patches. This will allow researchers to identify the exact "Substrate Complexity Index" required to reach a tipping point where aggression significantly drops.
+    Why pursue this? This research transforms habitat design from a passive aesthetic choice into an active tool for behavioral management, potentially eliminating the need for chemical stress-reducers in captive systems.
+    
     Narrative II: Bridging the Nutritional Gap in Larval Development
     Theme: Nutritional Synergy and Live-Feed Optimization
     
