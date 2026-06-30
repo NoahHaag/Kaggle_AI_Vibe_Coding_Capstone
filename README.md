@@ -92,79 +92,107 @@ print(result)
 
 ## ✨ Examples
 
-> **Query:**
-> lets look for some unique ways to raise damselfish, specifically new ways to breed them
+**Query:**
 
-> **Agent Response:**
-> Phase 1: The Context (Setting the Stage)
-> The survival of coral reef ecosystems hinges upon a delicate, multi-dimensional choreography of biological signals. Current marine conservation efforts are increasingly moving toward "Precision Husbandry"—an ambitious frontier that seeks to master the life cycles of keystone species, specifically within the family Pomacentridae (damselfish).
->
-> To date, our foundational understanding has focused on three critical pillars: the use of multimodal sensory stimuli (lunar light spectra and reef soundscapes) to trigger spawning; the application of nutritional biotechnology to combat high larval mortality; and the implementation of AI-driven autonomous systems to monitor and adjust habitat parameters in real-time. We recognize that for a restocking program to succeed, we must not only provide the right "diet" and "signals" but also maintain a stable physical and chemical environment. However, as we attempt to engineer these micro-environments, we are confronted by a staggering ecological reality: the reef is not a collection of isolated variables, but a hyper-connected system of thermal, acoustic, and light-driven feedback loops.
->
-> Phase 2: The Challenge (Defining the Gap)
-> Despite our technological advancements, a profound "knowledge silo" exists that threatens the efficacy of restoration. Current literature is fragmented, focusing on single-stimulus stressors in isolation. We see studies on the benefits of acoustic enrichment (Dobson) existing alongside research on the disruptive nature of artificial light at night (Schligler), yet we lack a cohesive understanding of their synergistic or antagonistic effects.
->
-> Furthermore, there is a critical conflict between active intervention and passive monitoring. As we deploy active acoustic tools to stimulate spawning, we risk masking the very passive biological signals required to assess biodiversity and biomass (Mooney et al.). Most significantly, we have ignored the multi-modal complexity of the environment. While we know fish respond to complex stimuli, our current models fail to account for the holistic physiological stress caused by the simultaneous convergence of light, sound, and thermal fluctuations. We are attempting to build high-tech nurseries on a foundation—the coral reef itself—whose breaking points under multi-modal stress remain dangerously unmapped.
->
-> Phase 3: The Solution (Proposing the Path)
-> To bridge the gap between high-tech fish husbandry and a collapsing natural habitat, we propose a revolutionary research trajectory. We must first establish the "biological floor"—the physiological limits of the coral architecture (Acropora spp.) that provides the essential habitat for the Pomacentridae we aim to restore.
->
-> Our proposed research moves through three integrated experimental tiers designed to quantify the collapse of the reef foundation under environmental pressure:
->
-> Tier 1: The Symbiotic Integrity Test (Addressing Thermal Variance) We hypothesize that increased thermal variance (22°C–26°C) significantly reduces the density of endosymbiotic dinoflagellates in Acropora spp. To test this, we will execute Protocol H1-FIELD-01, utilizing in-situ CTD profiling and quadrat-based extraction to map natural symbiont loss, complemented by lab-based PAM fluorometry to simulate 12-hour thermal cycles. This will reveal if even moderate fluctuations destabilize the coral’s primary energy source.
->
-> Tier 2: The Metabolic Demand Assessment (Addressing Oxygen & Temperature) Building on the symbiont data, we must understand the energetic cost of rising temperatures. We hypothesize that metabolic oxygen consumption rates in Acropora will spike significantly at 25°C–28°C compared to baseline levels. Through Protocol H2-FIELD-01, we will combine deep-water (35m–50m) dissolved oxygen monitoring with closed-system respirometry. This will determine if rising temperatures push corals into a state of metabolic deficit that could jeopardize the entire reef food web.
->
-> Tier 3: The Structural Collapse Model (Addressing Calcification Non-linearity) Finally, we must predict the physical disappearance of the reef. We hypothesize that skeletal calcification rates exhibit a non-linear, rapid decline as temperatures approach the critical 27°C–29°C threshold. Using Protocol H3-FIELD-01, we will employ buoyant weighing and non-linear thermal ramping in controlled environments to identify the exact "tipping point" where reef growth ceases to outpace erosion.
->
-> Final Synthesis
-> By integrating these three tiers, we move beyond simple observation. We are creating a predictive model that links coral physiological failure (the foundation) to the viability of Pomacentridae recruitment (the target species). Only by understanding the non-linear responses of the coral substrate to multi-modal stressors can we design AI-driven husbandry systems and nutritional protocols that are actually resilient to the realities of a changing ocean. We are not just studying fish; we are engineering the survival of an entire ecosystem.
+    Let's look for some unique ways to raise damselfish.
 
-> **Query:**
-> What are some gaps in the research on 3D printed artificial reefs?
+**Agent Response:**
 
-> **Agent Response:**
-> Research Prospectus: Navigating the Chemical and Structural Paradoxes of 3D-Printed Marine Restoration
-> Phase 1: The Context (Setting the Stage)
-> As global coral reef ecosystems face unprecedented degradation, additive manufacturing (3D printing) has emerged as a transformative frontier in marine restoration. By utilizing high-resolution 3D printing, researchers can now engineer complex, micro-topographic architectures designed to optimize hydrodynamic flow, enhance sediment transport, and provide diverse niche availability for benthic recruitment. The promise is clear: to replace lost structural complexity with bio-compatible, engineered substrates that facilitate the rapid recovery of diverse marine taxa.
->
-> However, this technological leap introduces a critical ecological tension. The transition from traditional stony substrates to synthetic, 3D-printed materials—ranging from biopolymers to calcium carbonate composites—shifts the restoration paradigm from passive structural support to active chemical interaction. As we introduce these engineered modules into sensitive marine environments, we must confront a fundamental reality: the very materials designed to save the reef may inadvertently alter the benthic water chemistry and the physiological health of the organisms they are intended to support.
->
-> Phase 2: The Challenge (Defining the Gap)
-> Current literature reveals a profound and unresolved conflict between the goals of structural innovation and the necessity of ecological safety. We have identified three high-potential research gaps that represent a "paradox of restoration":
->
-> The Toxicity Paradox: While significant effort is being directed toward developing sustainable resins for coral restoration (Jia et al.), emerging evidence suggests that even bio-based polymers may exert immunological stresses similar to petrochemical plastics (Dara et al.). We currently lack a definitive understanding of how these resins affect the cellular health of key framework species like Acropora spp. during their degradation lifecycle.
->
-> The Porosity-Leaching Paradox: To maximize biological recruitment, 3D-printed substrates are designed with high porosity and intricate surface complexities (Patil et al.). However, increasing the surface-area-to-volume ratio inherently increases the exposure of the substrate to seawater, potentially accelerating the leaching of additives and chemical agents (Jia et al.). The mathematical correlation between architectural complexity and chemical release remains unquantified.
->
-> The Fragmentation Paradox: Marine-derived bioplastics are widely advocated as a sustainable alternative to ocean pollutants (Manaswini et al.). Yet, the long-term fragmentation kinetics of these materials remain a "black box." There is a critical need to determine whether these "green" materials truly mitigate microplastic pollution or if they simply create a secondary, more insidious cycle of bio-based microplastic fragmentation (Dara et al.).
->
-> Phase 3: The Solution (Proposing the Path)
-> To resolve these contradictions, we propose a multi-scalar research program that integrates field-based ecological monitoring with controlled laboratory stress testing. Our approach is structured around three interconnected pillars of inquiry:
->
-> Pillar I: Validating Immunological Neutrality
-> To address the Toxicity Paradox, we will test the hypothesis that engineered non-toxic resins will induce significantly lower immunological stress markers in Acropora spp. compared to standard bio-based polymers.
->
-> Our methodology employs a dual-track approach:
->
-> Field Component: We will deploy engineered vs. bio-based modules at a depth of 22m, utilizing Pulse-Amplitude Modulation (PAM) fluorometry to monitor the maximum quantum yield ($F_v/F_m$) of symbiotic zooxanthellae in situ.
-> Lab Component: Controlled flow-through seawater systems (maintained at 27.5°C and 6.2 mg/L DO) will allow us to quantify precise physiological responses, ensuring that our restoration materials do not compromise the photosynthetic efficiency of the coral holobiont.
-> Pillar II: Quantifying the Porosity-Leaching Correlation
-> To resolve the Porosity-Leaching Paradox, we will investigate the hypothesis that there is a linear positive correlation between the increase in surface-area-to-volume ratio and the rate of chemical leachable agent release.
->
-> This will be achieved through:
->
-> Field Component: Deploying substrates with varying porosities (10%, 40%, and 70%) at 15m depth and utilizing Niskin bottles to capture water samples within the immediate benthic boundary layer.
-> Lab Component: Using high-precision pressure chambers to simulate benthic depths, we will correlate calibrated geometric surface areas (250–1250 mm²) with spectrophotometric analysis of leachable concentrations, establishing the mathematical limits of safe architectural complexity.
-> Pillar III: Assessing Fragmentation Kinetics
-> Finally, to resolve the Fragmentation Paradox, we will test whether marine-derived bioplastics exhibit significantly slower fragmentation-induced microplastic production rates compared to petrochemical-based plastics.
->
-> Our validation strategy includes:
->
-> Field Component: Long-term immersion studies using mesh enclosures at 35m depth to monitor natural fragmentation and micro-fragment bypass in a real-world benthic environment.
-> Lab Component: Accelerated degradation trials in high-flow tanks, utilizing buoyant weighing and fine-mesh sieving (10$\mu$m - 500$\mu$m) to provide a rigorous mass-balance of material loss and secondary microplastic production.
-> Through this integrated framework, this research will move 3D-printed marine restoration from an era of "structural trial-and-error" to a period of "ecologically engineered precision," ensuring that the reefs of tomorrow are built on a foundation of chemical and biological stability.
+    Narrative II: Bridging the Nutritional Gap in Larval Development
+    Theme: Nutritional Synergy and Live-Feed Optimization
+    
+    Phase 1: The Context
+    The larval stage of pomacentrids is the most precarious phase of their life cycle. Survival depends on a precise metabolic balance and the ability to transition from endogenous yolk sacs to exogenous feeding. This process occurs within tight environmental windows, typically between $26^\circ\text{C}–29^\circ\text{C}$ at depths of $10\text{m}–15\text{m}$ [ECO-TEMP-001, HAB-DEPTH-002], where planktonic productivity is highest.
+    
+    Phase 2: The Challenge
+    The "weaning gap"—the transition from live rotifers to micro-encapsulated diets—is a primary point of failure in aquaculture. Larvae often struggle with the nutritional density and palatability of inert feeds, leading to stunted growth or "starvation-induced" mortality despite the presence of food. Existing protocols treat feeding and substrate as independent variables, ignoring the synergistic potential of the biological biofilm that naturally exists on reef surfaces.
+    
+    Phase 3: The Solution
+    We propose a synergistic approach integrating a biomimetic biofilm-promoting substrate with a phased live-feed weaning protocol. We hypothesize that this combination will result in a $15%$ increase in larval growth rates by providing a supplementary, high-protein nutritional "safety net" via the biofilm.
+    
+    Experimental Path to Validation:
+    
+    Field Assessment: Using semi-permeable enclosures, larvae will be raised on biofilm-promoting substrates. Growth will be measured using a buoyant weighing system, providing a real-world benchmark for biomass accumulation in a natural nutrient regime.
+    Laboratory Control: In a closed-circuit system, larvae will be split between a "synergized" group (biofilm substrate + phased weaning) and a control group (inert glass + standard weaning). ImageJ analysis via digital microscopy will be used to track precise changes in larval length and weight.
+    Bioenergetic Simulation: A MATLAB-based bioenergetic model will calculate the metabolic cost of foraging versus the caloric gain from the biofilm. This will determine if the $15%$ growth target is robust across varying metabolic rates.
+    Why pursue this? Solving the weaning gap would drastically increase the yield of larval rearing, making the sustainable aquaculture of pomacentrids commercially and scientifically viable.
+    
+    Narrative III: Dissolving Dominance through Fractal Complexity
+    Theme: Territoriality Mitigation and Social Dynamics in High-Density Systems
+    
+    Phase 1: The Context
+    In high-density environments, damselfish naturally organize into strict dominance hierarchies. In the wild, these hierarchies are moderated by the structural complexity of the reef, particularly the intricate branching of Acropora corals. These structures provide "visual refugia"—areas where subordinate fish can remain physically close to resources while remaining invisible to the dominant individual.
+    
+    Phase 2: The Challenge
+    Captive high-density systems usually lack this specific type of structural complexity. When "line-of-sight" is unobstructed, dominant individuals can maintain constant surveillance over the entire territory. This leads to chronic stress in subordinates, manifested as elevated cortisol levels and significant growth disparities (where the dominant fish grows rapidly while others are stunted), eventually leading to systemic instability.
+    
+    Phase 3: The Solution
+    We propose the introduction of additive-manufactured structural complexity utilizing fractal porosity that mimics Acropora architectures. The hypothesis is that increasing the ratio of "visual refugia" per individual will break the line-of-sight necessary for dominance maintenance, thereby flattening the social hierarchy.
+    
+    Experimental Path to Validation:
+    
+    Field Comparison: Using stereo-video photogrammetry, researchers will map the spatial distribution of fish in natural Acropora patches versus 3D-printed fractal mimics. The goal is to see if the "Gini coefficient" of territory size is similar in both environments.
+    Laboratory Stress Analysis: Pomacentrus will be housed in high-density tanks with fractal refugia. The team will utilize water-borne cortisol assays and EthoVision XT tracking to prove that increased refugia access directly correlates with lower stress hormones and reduced aggression.
+    Spatial Simulation: Using AnyLogic, a 3D simulation will calculate the "Line of Sight" (LoS) blockage probability. This will identify the mathematical "tipping point" of porosity where a dominance hierarchy collapses into a more egalitarian social structure.
+    Why pursue this? This research offers a blueprint for "stress-free" high-density housing. By manipulating the geometry of the environment, we can bypass the biological imperative of aggression, allowing for healthier, more uniform growth in captive populations.
 
+**Query:**
+
+    What are some gaps in the research on 3D printed artificial reefs?
+
+**Agent Response:**
+
+    Narrative I: The Chemical Foundation of Growth
+    Theme: Material Biocompatibility and Long-term Degradation
+    
+    Phase 1: The Context (Setting the Stage)
+    Coral reefs are the architects of the ocean, yet their survival is increasingly dependent on human-engineered interventions. As we pivot toward 3D-printed restoration, the industry is caught between two philosophies: the use of biodegradable polymers like PLA—designed to disappear as the reef grows—and the use of permanent, carbon-sequestering concretes. However, the interface between a synthetic substrate and a living polyp is a site of intense chemical exchange. The foundational ecological reality is that coral calcification is exquisitely sensitive to the local chemical micro-environment; any leaching of monomers or heavy metals can trigger physiological stress, inhibiting the very growth the reef is meant to support (Valenzuela Matus et al., 2024; Albalawi et al., 2021).
+    
+    Phase 2: The Challenge (Defining the Gap)
+    While current literature acknowledges that biodegradable materials are "eco-friendly" in a general sense, there is a critical lack of comparative data regarding the long-term physiological cost of these materials on adult colonies. We do not yet know if the "controlled leaching" of biodegradable polymers (Korniejenko et al., 2025) actually suppresses calcification rates when compared to the chemical stability of carbon-sequestering concretes. This gap prevents us from determining if the temporary nature of PLA is a benefit or a toxic liability for Acropora spp.
+    
+    Phase 3: The Solution (Proposing the Path)
+    To resolve this, we propose Hypothesis 1: Carbon-sequestering concrete substrates exhibit significantly lower chemical leaching rates than PLA-based biodegradable polymers, resulting in a $\geq 20%$ increase in the calcification rates of adult Acropora spp. colonies.
+    
+    To test this, the researcher will employ a tri-layered experimental architecture:
+    
+    Field Validation (H1-FIELD): Deploy 120 Acropora fragments across 120 blocks (60 concrete, 60 PLA) at depths of 12m. Using buoyant weighing every 30 days, we will quantify net calcification ($\text{g cm}^{-2} \text{day}^{-1}$) to see if the concrete supports superior growth kinetics.
+    Laboratory Mechanism (H1-LAB): Use ICP-MS to measure precise leaching rates of heavy metals and monomers over 14 days, while simultaneously monitoring the maximum quantum yield ($F_v/F_m$) of the corals via PAM fluorometry to link chemical leaching to physiological stress.
+    Computational Prediction (H1-COMP): Utilize COMSOL Multiphysics to model the Fickian diffusion of leached chemicals within a 2mm boundary layer, creating a dose-response function that predicts calcification inhibition across 10,000 Monte Carlo iterations.
+    Narrative II: The Architecture of Attraction
+    Theme: Biomimetic Complexity and Targeted Recruitment
+    
+    Phase 1: The Context (Setting the Stage)
+    The success of any artificial reef is not measured by the amount of life it attracts, but by the type of life it sustains. Natural reefs are defined by extreme structural complexity—fractal patterns that create varied flow regimes and refugia. In the race to restore these habitats, 3D printing allows us to move beyond simple blocks to complex biomimicry. However, the ocean is a competitive landscape; if a substrate is not specifically tuned to the needs of scleractinian larvae, it will be rapidly colonized by opportunistic macroalgae, effectively "locking out" the corals (Vieira et al., 2025).
+    
+    Phase 2: The Challenge (Defining the Gap)
+    We possess the technology to print complex shapes, but we lack the "topological blueprint" for selectivity. The existing literature fails to define the exact threshold of structural complexity—specifically the fractal dimension—required to tip the balance of recruitment in favor of target corals over opportunistic algae. Without this precision, 3D printing remains an exercise in aesthetics rather than ecological engineering.
+    
+    Phase 3: The Solution (Proposing the Path)
+    We propose Hypothesis 2: 3D-printed substrates utilizing biomimetic micro-topographies with a fractal dimension $\geq 2.6$ will recruit a higher ratio of target scleractinian larvae relative to opportunistic macroalgae compared to natural limestone substrates.
+    
+    The researcher will validate this through the following methodology:
+    
+    Field Validation (H2-FIELD): Deploy 100 tiles (50 with $D_f=2.65$, 50 natural limestone $D_f=2.10$) at 8m depth. Over 120 days, high-resolution DSLR imagery and stereomicroscopy will be used to calculate the recruitment ratio: $\text{Scleractinia} / \text{Macroalgae}$.
+    Laboratory Mechanism (H2-LAB): In a recirculating flume tank, we will introduce Acropora larvae and use Laser Particle Image Velocimetry (PIV) to map how flow turbulence around fractal surfaces influences larval settlement preference.
+    Computational Prediction (H2-COMP): Using ANSYS Fluent and Navier-Stokes equations, we will simulate the trajectory of 150$\mu\text{m}$ larvae across 500 different STL geometries to correlate the "Attachment Probability Index" with the fractal dimension $D_f$.
+    Narrative III: The Engine of the Ecosystem
+    Theme: Longitudinal Trophic Integration and Ecosystem Services
+    
+    Phase 1: The Context (Setting the Stage)
+    A reef is more than a collection of corals; it is a biogeochemical engine. One of the most critical services this engine provides is nutrient cycling, specifically the conversion of nitrate ($\text{NO}_3^-$) to nitrogen gas ($\text{N}_2$) through denitrification. This process prevents eutrophication and maintains the oligotrophic conditions necessary for coral health. The transition from a bare synthetic surface to a functioning ecosystem depends entirely on the microbial biofilm that first colonizes the substrate (Gimblett et al., 2026).
+    
+    Phase 2: The Challenge (Defining the Gap)
+    Most artificial reef research focuses on the "colonization phase"—who arrives first. There is a profound gap in our understanding of the "integration phase"—how the substrate material influences the long-term stability of the nitrogen cycle. We do not know if carbon-sequestering concretes, with their specific porosity and alkalinity, foster a more efficient denitrification community than traditional polymers over a multi-year horizon.
+    
+    Phase 3: The Solution (Proposing the Path)
+    We propose Hypothesis 3: The transition from initial microbial colonization to a stable community structure on carbon-sequestering concrete reefs increases the local benthic nitrogen cycling efficiency (measured via $\text{NO}_3^-$ to $\text{N}_2$ conversion) compared to traditional polymer-based artificial reefs.
+    
+    The researcher will execute this investigation via:
+    
+    Field Validation (H3-FIELD): Deploy 20 reefs (10 concrete, 10 polymer) and utilize in-situ benthic chambers every 60 days for one year. Isotope ratio mass spectrometry will measure the $\text{NO}_3^-$ to $\text{N}_2$ flux to quantify denitrification efficiency.
+    Laboratory Mechanism (H3-LAB): Biofilm cores will be extracted and placed in anaerobic chambers amended with $^{15}\text{N}$-labeled $\text{KNO}_3$. Gas Chromatography (GC-IRMS) will be used to determine the exact rate of $^{15}\text{N}_2$ production.
+    Computational Prediction (H3-COMP): A metabolic network model with 1,000 nodes (representing microbial guilds) will be built using Python/SciPy. By varying the "Substrate Porosity" parameter, the model will simulate the one-year transition from initial colonization to a stable nutrient-cycling state.
 
 ## Known Bugs
 - When the agent is used too frequently, the Google Scholar search tool hits a rate limit and returns an empty set, causing the Gap Finder to loop infinitely. 
