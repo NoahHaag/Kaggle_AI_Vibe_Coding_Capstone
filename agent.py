@@ -90,13 +90,13 @@ gap_finder_agent = Agent(
 SKILL: gap-finder-tool-enforcement
 SKILL: synthesize-research-themes
 
-Role: You are a formal logic expert for literature analysis.
+Role: You are a formal logic expert for literature analysis. Cite all sources as (Author, Year)
 
 **Workflow:**
-1.  **Analyze Input:** You will receive research topics here: {Research_Areas}. If this is not the first time you've been called your last output will be here: {Gaps}.
+1.  **Analyze Input:** You will receive research topics here: {Research_Areas}. If this is not the first time you've been called the previous research results will be here: {total_research_papers}.
 2.  **Call Tools:** Call `google_scholar_search` for each topic to gather papers. You MUST call the tools. Make each tool call one at a time. To call the tool output the query. 
 3.  **Receive Results:** The workflow will execute your tool calls and feed the results back to you.
-4.  **Analyze and Loop:** Analyze the tool results. If you don't have enough information or need to refine your search, call the tools again.
+4.  **Analyze and Loop:** Analyze the tool results. If you don't have enough information or need to refine your search, call the tools again. You should be able to come up with something within 100 research papers. If the total_research_papers is longer than 100 papers, start working on the conflict table.
 5.  **Terminate:** Once you have found at least 3 plausible research gaps based on the papers, your FINAL output must be ONLY the Markdown table below. The presence of this table signals that your work is done.
 
 **Final Output Format (Termination Payload):**
@@ -130,6 +130,8 @@ Role: You are a creative structuralist and abstraction expert specializing in ma
 
 Task: Produce exactly 3 structured, falsifiable hypotheses following the hypothesis-designer-handoff skill format.
 
+Input: {Research_Areas}, {Gaps}, {Hypothesis_Verification}, {total_research_papers}
+
 Mode A — Fresh generation: Input is a Research Gap Analysis table from the Gap Finder.
   → Produce 3 new hypotheses, one per gap row.
 Mode B — Revision: Input begins with 'Constraint Violation Feedback:'.
@@ -160,7 +162,7 @@ IMPORTANT: The full Constraint Database has already been loaded for you by the w
 is embedded in your input under the [CONSTRAINT DATABASE] header. You do NOT need to call
 any tools — work exclusively from the provided database entries.
 
-Task: Review all 3 proposed hypotheses (under [HYPOTHESES]) against every constraint in
+Task: Review all 3 proposed hypotheses (under {Hypotheses}) against every constraint in
 [CONSTRAINT DATABASE].
 
 Process:
@@ -186,7 +188,8 @@ Output ONLY the VerificationResult JSON. No prose, no explanation after the JSON
         http_options=types.HttpOptions(
             retry_options=types.HttpRetryOptions(initial_delay=1, attempts=2),
         )
-    )
+    ),
+    output_key= "Hypothesis_Verification"
 )
 
 # 6. Experimental Designer Agent
@@ -252,6 +255,8 @@ research_proposer = Agent(
     The synthesized {Gaps}.
     The fully verified {Hypotheses} and their associated feasibility checks.
     The detailed {Experiments} for the proposed tests.
+    Cite all sources as (Authors, Year). The bibliography can be found here {total_research_papers}.
+    
     Output Format (Narrative Structure): Structure your final output using the following narrative sequence:
     
     Phase 1: The Context (Setting the Stage)
@@ -313,6 +318,7 @@ _SLEEP_GAP_TO_DESIGNER     = 1
 _SLEEP_DESIGNER_TO_VERIFY  = 1
 _SLEEP_VERIFY_TO_EXP       = 1
 _SLEEP_EXP_TO_FINAL_SEC    = 1
+_SLEEP_GAP_TO_TOOL         = 3
 
 
 def throttle_pi_to_security(node_input: str) -> str:
@@ -339,17 +345,22 @@ def throttle_exp_to_final_sec(node_input: str) -> str:
     time.sleep(_SLEEP_EXP_TO_FINAL_SEC)
     return node_input
 
+def throttle_gap_to_tool(node_input: str) -> str:
+    time.sleep(_SLEEP_GAP_TO_TOOL)
+    return node_input
+
 
 # ---------------------------------------------------------------------------
 # Router and helper nodes
 # ---------------------------------------------------------------------------
 
-def gap_finder_executor_router(node_input):
+def gap_finder_executor_router(node_input, total_research_papers: list = None):
     """
     Inspects the output of the Gap_Finder agent. If it's a tool call, this
     node executes the tool directly and routes the result back to the agent.
     If it's the final analysis, it routes to the next step.
     """
+    current_papers = total_research_papers or []
     processed_input = node_input
     if isinstance(node_input, str):
         try:
@@ -357,6 +368,12 @@ def gap_finder_executor_router(node_input):
         except json.JSONDecodeError:
             pass  # Not a JSON string, treat as final output
 
+    # Check for a MALFORMED_RESPONSE error from the agent
+    if isinstance(processed_input, dict) and processed_input.get("errorCode") == "MALFORMED_RESPONSE":
+        error_feedback = "The previous response was malformed. Please regenerate the tool call or final analysis, ensuring it strictly follows the required format."
+        return Event(route="TOOL_RESULT", output=error_feedback)
+
+    # Check for a valid tool call
     if isinstance(processed_input, dict) and "name" in processed_input:
         tool_name = processed_input.get("name")
         parameters = processed_input.get("parameters", {})
@@ -364,10 +381,12 @@ def gap_finder_executor_router(node_input):
         try:
             if tool_name == "google_scholar_search":
                 result = google_scholar_search(**parameters)
-                return Event(route="TOOL_RESULT", output=json.dumps(result))
+                updated_papers = current_papers + result
+                return Event(route="TOOL_RESULT", output=json.dumps(result), state={"total_research_papers": updated_papers})
             elif tool_name == "advanced_google_scholar_search":
                 result = advanced_google_scholar_search(**parameters)
-                return Event(route="TOOL_RESULT", output=json.dumps(result))
+                updated_papers = current_papers + result
+                return Event(route="TOOL_RESULT", output=json.dumps(result), state={"total_research_papers": updated_papers})
         except Exception as e:
             # If the tool fails, send the error back to the agent
             error_message = f"Error executing tool {tool_name}: {e}"
@@ -399,7 +418,9 @@ def security_failed_node(node_input: str):
     return Event(message=f"Workflow halted due to security violation:\n{node_input}")
 
 def workflow_initilization_node(node_input: str):
-    return Event(state= {"Gaps": "No gaps or research identified yet"})
+    return Event(state= {"Gaps": "No gaps or research identified yet",
+                         "Hypothesis_Verification": "No Verification Results Yet",
+                         "total_research_papers": [""]})
 
 
 # The root workflow graph
@@ -415,7 +436,8 @@ root_agent = Workflow(
 
         # ── Gap Finder ReAct Loop (Executor Pattern) ───────────────────────
         (throttle_security_to_gap, gap_finder_agent),
-        (gap_finder_agent, gap_finder_executor_router),
+        (gap_finder_agent, throttle_gap_to_tool),
+        (throttle_gap_to_tool, gap_finder_executor_router),
         (gap_finder_executor_router, {
             "TOOL_RESULT": gap_finder_agent,  # Loop back to the agent with tool results
             "ANALYSIS_COMPLETE": throttle_gap_to_designer,
